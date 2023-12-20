@@ -8,7 +8,7 @@ def route_path_func():
     """Func that prompts user for route path and enables stopping"""
 
     route = input("Please enter a route file name or STOP to end: ")
-    print(route)
+    
     if route.upper() == "STOP":
         print("Ok, stopping")
         return 
@@ -16,9 +16,9 @@ def route_path_func():
     else:
         try:
             route=open(route, "r")
-            coordinates=route.read()
+            route=route.read()
             #print(coordinates)
-            making_the_grid(coordinates)
+            making_the_grid(route)
 
         except:
             print("File not found")
@@ -48,32 +48,34 @@ def making_inputs(coordinates):
         else:
             path+=char
 
-    x_plots=list(int(x_start))
-    y_plots=list(int(y_start))
-    X=x_plots
-    Y=y_plots
+    x_plots=[]
+    y_plots=[]
+    x_plots.append(int(x_start))
+    y_plots.append(int(y_start))
+    X=int(x_start)
+    Y=int(y_start)
 
     for directions in path:
         
         if directions=='N':
-            x_plots+= X 
-            Y=Y+1
-            y_plots+= Y
+            x_plots.append(X) 
+            Y=int(Y+1)
+            y_plots.append(Y)
         
         elif directions=='S':
-            x_plots+= X 
-            Y=Y-1
-            y_plots+= Y
+            x_plots.append(X)
+            Y=int(Y-1)
+            y_plots.append(Y)
 
         elif directions=='E':
-            y_plots+= Y
-            X=X+1
-            x_plots+= X
+            y_plots.append(Y)
+            X=int(X+1)
+            x_plots.append(X)
 
         elif directions=='W':
-            y_plots+= Y
-            X=X-1
-            x_plots+= X
+            y_plots.append(Y)
+            X=int(X-1)
+            x_plots.append(X)
     
     print(x_plots)
     print(y_plots)
@@ -100,6 +102,9 @@ def making_the_grid(x_plots,y_plots):
 #                                                        >Runner<
 
 route_path_func()
+#coordinates= open("Route001.txt", "r")
+#coordinates=coordinates.read()
+#making_inputs(coordinates)
     
 
     
