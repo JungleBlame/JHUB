@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 #---------------------------------------------------------------------------------------------------------------------------#
 
 def route_path_func():
@@ -17,7 +16,6 @@ def route_path_func():
         try:
             route=open(route, "r")
             route=route.read()
-            print(route)
             making_inputs(route)
 
         except:
@@ -76,38 +74,57 @@ def making_inputs(coordinates):
             y_plots.append(Y)
             X=int(X-1)
             x_plots.append(X)
-    
-    print(x_plots)
-    print(y_plots)
 
+    check_func(x_plots)
+    check_func(y_plots)
+    making_the_grid(x_plots,y_plots)
 
-    #making_the_grid(x_plots,y_plots)
 #---------------------------------------------------------------------------------------------------------------------------#                
+
+def check_func(list_plots):
+    """Func to check if plots are correct"""
+
+    for plots in list_plots:
+        if plots >12 or plots <0:
+            print("The Route is outside of the grid")
+            route_path_func()
+    
+#---------------------------------------------------------------------------------------------------------------------------#
+
+def make_coordinates(x_plots,y_plots):
+    """Func to return coordinates from x and y plots"""
+    
+    couple=[]
+    coordinates=[]
+    counter=len(x_plots)
+    index=0
+
+    while counter!=0:
+        
+        couple.append(x_plots[index])
+        couple.append(y_plots[index])
+        coordinates.append(couple)
+        couple=[]
+        index+=1
+        counter-=1
+    
+    return coordinates
+#---------------------------------------------------------------------------------------------------------------------------#
 def making_the_grid(x_plots,y_plots):
     """Func to make the grid using np and plt"""
     
-    x = x_plots
-    y = y_plots
-    
+    xpoints = np.array(x_plots)
+    ypoints = np.array(y_plots)
 
-
-
-
-
-    plt.plot(x, y)
+    plt.plot(xpoints, ypoints, marker="X")
+    plt.grid()
     plt.show()
-
     
+    coordinates= make_coordinates(x_plots,y_plots)
+    print("Coordinates are: ", coordinates)
+
+    route_path_func()
 #---------------------------------------------------------------------------------------------------------------------------#
 #                                                        >Runner<
-
 route_path_func()
-#coordinates= open("Route001.txt", "r")
-#coordinates=coordinates.read()
-#making_inputs(coordinates)
-
-#route = input("Please enter a route file name or STOP to end: ")
-
-#route=open(route, "r")
-#route=route.read()
-
+    
