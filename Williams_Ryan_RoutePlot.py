@@ -17,8 +17,8 @@ def route_path_func():
         try:
             route=open(route, "r")
             route=route.read()
-            #print(coordinates)
-            making_the_grid(route)
+            print(route)
+            making_inputs(route)
 
         except:
             print("File not found")
@@ -105,6 +105,9 @@ route_path_func()
 #coordinates= open("Route001.txt", "r")
 #coordinates=coordinates.read()
 #making_inputs(coordinates)
-    
 
-    
+#route = input("Please enter a route file name or STOP to end: ")
+
+#route=open(route, "r")
+#route=route.read()
+
