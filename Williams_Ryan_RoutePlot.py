@@ -9,24 +9,27 @@ def route_path_func():
     route = input("Please enter a route file name or STOP to end: ")
     
     if route.upper() == "STOP":
-        print("Ok, stopping")
-        return 
+        stop_run()
     
-    else:
-        try:
-            route=open(route, "r")
-            route=route.read()
-            making_inputs(route)
+    elif route.upper()!="STOP":
 
-        except:
+        try:
+            with open(route, "r") as File:
+                File=File.read()
+                making_inputs(File)
+            
+
+        except FileNotFoundError:
             print("File not found")
             route_path_func()
+        
 
 #---------------------------------------------------------------------------------------------------------------------------#
-def making_inputs(coordinates):
+            
+def making_inputs(File):
     "Gives starting coords and path"
 
-    coordinates=list(coordinates)
+    coordinates=list(File)
    
     path=[]
     x_start=""
@@ -46,10 +49,8 @@ def making_inputs(coordinates):
         else:
             path+=char
 
-    x_plots=[]
-    y_plots=[]
-    x_plots.append(int(x_start))
-    y_plots.append(int(y_start))
+    x_plots=[int(x_start)]
+    y_plots=[int(y_start)]
     X=int(x_start)
     Y=int(y_start)
 
@@ -110,6 +111,7 @@ def make_coordinates(x_plots,y_plots):
     
     return coordinates
 #---------------------------------------------------------------------------------------------------------------------------#
+
 def making_the_grid(x_plots,y_plots):
     """Func to make the grid using np and plt"""
     
@@ -123,8 +125,17 @@ def making_the_grid(x_plots,y_plots):
     coordinates= make_coordinates(x_plots,y_plots)
     print("Coordinates are: ", coordinates)
 
+
     route_path_func()
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+def stop_run():
+    print("Ok, stopping")
+    return
+
 #---------------------------------------------------------------------------------------------------------------------------#
 #                                                        >Runner<
+
 route_path_func()
     
